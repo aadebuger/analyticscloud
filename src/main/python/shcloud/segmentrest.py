@@ -6,10 +6,11 @@ Created on Jul 10, 2016
 
 from flask import Flask
 from flask import request
+import json
 app = Flask(__name__)
 
 def logBatchitem(item):
-	print(item)
+	print(json.dumps(item,encoding='ascii'))
 def logBatch( batchv):
 	map(lambda item:logBatchitem(item),batchv)
 @app.route("/v1/batch",methods=['GET', 'POST'])
