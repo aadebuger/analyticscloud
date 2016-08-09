@@ -15,8 +15,8 @@ def logBatch( batchv):
 	map(lambda item:logBatchitem(item),batchv)
 @app.route("/v1/batch",methods=['GET', 'POST'])
 def hello():
-	requestdata = request.get_json(force=True)
-    print("data=",requestdata)
+    requestdata = request.get_json(force=True)
+    print("data1=",requestdata)
 
     batch = requestdata['batch']
     logBatch(batch)
