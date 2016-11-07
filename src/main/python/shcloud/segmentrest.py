@@ -19,7 +19,7 @@ def test():
     return """ok"""
 @app.route("/v1/batch",methods=['GET', 'POST'])
 def hello():
-#    print("data1=",request)
+    print("data1=",request)
     requestdata = request.get_json(force=True,silent=True)
 #    print("data1=",requestdata)
 
@@ -27,5 +27,10 @@ def hello():
     logBatch(batch)
     return """{"status":"Hello World!"}"""
 
+@app.route("/v1/import",methods=['GET', 'POST'])
+def v1import():
+    print("v1 import data1=",request)
+    return """{"status":"Hello World!"}"""
+   
 if __name__ == "__main__":
     app.run("0.0.0.0")
