@@ -6,6 +6,7 @@ Created on Jul 10, 2016
 
 from flask import Flask
 from flask import request
+import zlib
 import json
 app = Flask(__name__)
 #curl -i -H "Accept: application/json" -H "Content-Type: application/json" -X POST -d "{'batch':{'data':'here'}}" http://localhost:5000/v1/batch1
@@ -26,6 +27,8 @@ def settings():
 def hello():
     print("data1=",request)
     print("data1=",request.data)    
+    udata = zlib.decompress(request.data)
+    print("udata=",udata)
     return """{"status":"Hello World!"}"""
     requestdata = request.get_json(force=True,silent=True)
 #    print("data1=",requestdata)
