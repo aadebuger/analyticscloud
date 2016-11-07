@@ -17,6 +17,11 @@ def logBatch( batchv):
 @app.route("/")
 def test():
     return """ok"""
+@app.route("/v1/projects/qkzhi/settings")
+def settings():
+    return """{  "integrations":     {
+        "Segment.io": "@123"
+    }  }"""
 @app.route("/v1/batch",methods=['GET', 'POST'])
 def hello():
     print("data1=",request)
