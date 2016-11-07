@@ -10,6 +10,7 @@ import zlib
 import json
 import gzip
 import StringIO
+import json
 app = Flask(__name__)
 #curl -i -H "Accept: application/json" -H "Content-Type: application/json" -X POST -d "{'batch':{'data':'here'}}" http://localhost:5000/v1/batch1
 
@@ -27,18 +28,18 @@ def settings():
     }  }"""
 @app.route("/v1/batch",methods=['GET', 'POST'])
 def hello():
-    print("data1=",request)
-    print("data1=",request.data)    
+#    print("data1=",request)
+#    print("data1=",request.data)    
 #	fp =gzip.Un(fileobj = StringIO.StringIO(request.data)
 #	data = fp.read()
 		
     udata = zlib.decompress(request.data, 15+32)
     
     print("udata=",udata)
-    return """{"status":"Hello World!"}"""
-    requestdata = request.get_json(force=True,silent=True)
+#    return """{"status":"Hello World!"}"""
+#    requestdata = request.get_json(force=True,silent=True)
 #    print("data1=",requestdata)
-
+    requestdata = json.loads(udata)
     batch = requestdata['batch']
     logBatch(batch)
     return """{"status":"Hello World!"}"""
