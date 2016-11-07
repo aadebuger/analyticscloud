@@ -25,6 +25,7 @@ def settings():
 @app.route("/v1/batch",methods=['GET', 'POST'])
 def hello():
     print("data1=",request)
+    print("data1=",request.data)    
     return """{"status":"Hello World!"}"""
     requestdata = request.get_json(force=True,silent=True)
 #    print("data1=",requestdata)
