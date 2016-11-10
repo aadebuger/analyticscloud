@@ -21,12 +21,22 @@ class WSGICopyBody(object):
         self.application = application
 
     def __call__(self, environ, start_response):
-
         from cStringIO import StringIO
+        input = environ.get('wsgi.input')
         length = environ.get('CONTENT_LENGTH', '0')
         length = 0 if length == '' else int(length)
-
-        body = environ['wsgi.input'].read(length)
+        body = ''
+        if length == 0:
+            environ['body_copy'] = ''
+            if input is None:
+                return
+            if environ.get('HTTP_TRANSFER_ENCODING','0') == 'chunked':
+                size = int(input.readline(),16)
+                while size > 0:
+                    body += input.read(size+2)
+                    size = int(input.readline(),16)
+        else:
+            body = environ['wsgi.input'].read(length)
         environ['body_copy'] = body
         environ['wsgi.input'] = StringIO(body)
 
