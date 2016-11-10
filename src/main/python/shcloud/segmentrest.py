@@ -143,10 +143,14 @@ def importnew():
 #    return """{"status":"Hello World!"}"""
 #    requestdata = request.get_json(force=True,silent=True)
 #    print("data1=",requestdata)
-    requestdata = json.loads(udata)
-    batch = requestdata['batch']
-    logBatch(batch)
-    return """{"status":"Hello World!"}"""
+    try:
+    	requestdata = json.loads(udata)
+     	batch = requestdata['batch']
+      	logBatch(batch)
+    	return """{"status":"Hello World!"}"""
+    except Exception,e:
+    	print(e)
+    	return """{"status":"Hello World!"}"""    
 @app.route("/v1/importold",methods=['GET', 'POST'])
 def v1import():
     print("v1 import data1=",request)
