@@ -66,7 +66,7 @@ def hello():
 #	fp =gzip.Un(fileobj = StringIO.StringIO(request.data)
 #	data = fp.read()
 
-    print("request.data datalen",len(request.data))
+#    print("request.data datalen",len(request.data))
 		
     data = request.get_data()
     print("datalen",len(data))
