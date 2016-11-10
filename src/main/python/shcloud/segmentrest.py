@@ -81,6 +81,27 @@ def hello():
     logBatch(batch)
     return """{"status":"Hello World!"}"""
 
+@app.route("/v1/import",methods=['GET', 'POST'])
+def importnew():
+#    print("data1=",request)
+#    print("data1=",request.data)    
+#	fp =gzip.Un(fileobj = StringIO.StringIO(request.data)
+#	data = fp.read()
+
+#    print("request.data datalen",len(request.data))
+		
+    data = request.data
+    print("datalen",len(data))
+    udata = zlib.decompress(data, 15+32)
+    
+    print("udata=",udata)
+#    return """{"status":"Hello World!"}"""
+#    requestdata = request.get_json(force=True,silent=True)
+#    print("data1=",requestdata)
+    requestdata = json.loads(udata)
+    batch = requestdata['batch']
+    logBatch(batch)
+    return """{"status":"Hello World!"}"""
 @app.route("/v1/importold",methods=['GET', 'POST'])
 def v1import():
     print("v1 import data1=",request)
