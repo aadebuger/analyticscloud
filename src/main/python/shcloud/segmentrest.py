@@ -33,8 +33,9 @@ def hello():
 #	fp =gzip.Un(fileobj = StringIO.StringIO(request.data)
 #	data = fp.read()
 		
-    print("datalen",len(request.data))
-    udata = zlib.decompress(request.data, 15+32)
+    data = request.get_data()
+    print("datalen",len(data))
+    udata = zlib.decompress(data, 15+32)
     
     print("udata=",udata)
 #    return """{"status":"Hello World!"}"""
