@@ -35,8 +35,10 @@ class WSGICopyBody(object):
                 size = int(input.readline(),16)
                 print("size=",size)
                 while size > 0:
-                    body += input.read(size+2)
+                    body += input.read(size)
+                    input.read(2)
                     size = int(input.readline(),16)
+                    print("size1=",size)
         else:
             body = environ['wsgi.input'].read(length)
         environ['body_copy'] = body
