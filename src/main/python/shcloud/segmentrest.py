@@ -31,7 +31,9 @@ class WSGICopyBody(object):
             if input is None:
                 return
             if environ.get('HTTP_TRANSFER_ENCODING','0') == 'chunked':
+            	print("chunked")
                 size = int(input.readline(),16)
+                print("size=",size)
                 while size > 0:
                     body += input.read(size+2)
                     size = int(input.readline(),16)
@@ -100,7 +102,6 @@ def settings():
         "Segment.io": "@123"
     }  }"""
 @app.route("/v1/batch",methods=['GET', 'POST'])
-@app.route("/v1/import",methods=['GET', 'POST'])
 def hello():
 #    print("data1=",request)
 #    print("data1=",request.data)    
@@ -133,7 +134,7 @@ def importnew():
 		
 #    data = request.data
     data=request.environ['body_copy']
-    print("datalen",len(data))
+    print("datalen import",len(data))
     udata = zlib.decompress(data, 15+32)
     
     print("udata=",udata)
