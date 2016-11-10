@@ -59,6 +59,7 @@ def settings():
         "Segment.io": "@123"
     }  }"""
 @app.route("/v1/batch",methods=['GET', 'POST'])
+@app.route("/v1/import",methods=['GET', 'POST'])
 def hello():
 #    print("data1=",request)
 #    print("data1=",request.data)    
@@ -80,7 +81,7 @@ def hello():
     logBatch(batch)
     return """{"status":"Hello World!"}"""
 
-@app.route("/v1/import",methods=['GET', 'POST'])
+@app.route("/v1/importold",methods=['GET', 'POST'])
 def v1import():
     print("v1 import data1=",request)
     return """{"status":"Hello World!"}"""
