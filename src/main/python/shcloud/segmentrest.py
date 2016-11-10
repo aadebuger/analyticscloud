@@ -33,6 +33,7 @@ def hello():
 #	fp =gzip.Un(fileobj = StringIO.StringIO(request.data)
 #	data = fp.read()
 		
+    print("datalen",len(request.data))
     udata = zlib.decompress(request.data, 15+32)
     
     print("udata=",udata)
