@@ -14,6 +14,37 @@ import json
 app = Flask(__name__)
 #curl -i -H "Accept: application/json" -H "Content-Type: application/json" -X POST -d "{'batch':{'data':'here'}}" http://localhost:5000/v1/batch1
 
+
+
+class WSGICopyBody(object):
+    def __init__(self, application):
+        self.application = application
+
+    def __call__(self, environ, start_response):
+
+        from cStringIO import StringIO
+        length = environ.get('CONTENT_LENGTH', '0')
+        length = 0 if length == '' else int(length)
+
+        body = environ['wsgi.input'].read(length)
+        environ['body_copy'] = body
+        environ['wsgi.input'] = StringIO(body)
+
+        # Call the wrapped application
+        app_iter = self.application(environ, 
+                                    self._sr_callback(start_response))
+
+        # Return modified response
+        return app_iter
+
+    def _sr_callback(self, start_response):
+        def callback(status, headers, exc_info=None):
+
+            # Call upstream start_response
+            start_response(status, headers, exc_info)
+        return callback
+app.wsgi_app = WSGICopyBody(app.wsgi_app)
+
 def logBatchitem(item):
 	print(json.dumps(item,encoding='ascii'))
 def logBatch( batchv):
@@ -90,7 +121,8 @@ def importnew():
 
 #    print("request.data datalen",len(request.data))
 		
-    data = request.data
+#    data = request.data
+    data=request.environ['body_copy']
     print("datalen",len(data))
     udata = zlib.decompress(data, 15+32)
     
