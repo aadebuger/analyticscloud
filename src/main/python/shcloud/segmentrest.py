@@ -21,6 +21,38 @@ def logBatch( batchv):
 @app.route("/")
 def test():
     return """ok"""
+   
+@app.route("/v1/projects/qkzhiandroid/settings")
+def androidsettings():
+    return """{
+    "integrations": {
+        "Segment.io": {
+            "apiKey": "qkzhiandroid"
+        }
+    },
+    "plan": {
+        "track": {
+            "123": {
+                "enabled": false,
+                "integrations": {}
+            },
+            "Pixel Rendered": {
+                "enabled": true,
+                "integrations": {
+                    "Amazon S3": false
+                }
+            },
+            "Android: First Event Properties Event": {
+                "enabled": true,
+                "integrations": {
+                    "Mixpanel": false
+                }
+            }
+        }
+    }
+}"""
+       
+
 @app.route("/v1/projects/qkzhi/settings")
 def settings():
     return """{  "integrations":     {
@@ -32,6 +64,8 @@ def hello():
 #    print("data1=",request.data)    
 #	fp =gzip.Un(fileobj = StringIO.StringIO(request.data)
 #	data = fp.read()
+
+    print("request.data datalen",len(request.data))
 		
     data = request.get_data()
     print("datalen",len(data))
