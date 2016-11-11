@@ -33,12 +33,12 @@ class WSGICopyBody(object):
             if environ.get('HTTP_TRANSFER_ENCODING','0') == 'chunked':
             	print("chunked")
                 size = int(input.readline(),16)
-                print("size=",size)
+#                print("size=",size)
                 while size > 0:
                     body += input.read(size)
                     input.read(2)
                     size = int(input.readline(),16)
-                    print("size1=",size)
+#                    print("size1=",size)
         else:
             body = environ['wsgi.input'].read(length)
         environ['body_copy'] = body
@@ -113,10 +113,10 @@ def hello():
 #    print("request.data datalen",len(request.data))
 		
     data = request.get_data()
-    print("datalen",len(data))
+#    print("datalen",len(data))
     udata = zlib.decompress(data, 15+32)
     
-    print("udata=",udata)
+#    print("udata=",udata)
 #    return """{"status":"Hello World!"}"""
 #    requestdata = request.get_json(force=True,silent=True)
 #    print("data1=",requestdata)
@@ -136,10 +136,10 @@ def importnew():
 		
 #    data = request.data
     data=request.environ['body_copy']
-    print("datalen import",len(data))
+#    print("datalen import",len(data))
     udata = zlib.decompress(data, 15+32)
     
-    print("udata=",udata)
+#    print("udata=",udata)
 #    return """{"status":"Hello World!"}"""
 #    requestdata = request.get_json(force=True,silent=True)
 #    print("data1=",requestdata)
