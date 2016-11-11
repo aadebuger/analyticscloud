@@ -98,6 +98,12 @@ def androidsettings():
 }"""
        
 
+@app.route("/logtest")
+def logtest():
+    print("""{"timestamp": "2016-11-10T20:56:55.469+0800", "integrations": {}, "event": "DecisionChoose1", "anonymousId": "19B3CE1C-B16C-4B93-A198-7868B3309BA1", "messageId": "7727197A-7551-406B-A8FE-19A7676706B5", "type": "track", "properties": {"objectId": "57e9dbd0d203090069555b8112"}}""")
+    return """ok"""
+    
+    
 @app.route("/v1/projects/qkzhi/settings")
 def settings():
     return """{  "integrations":     {
